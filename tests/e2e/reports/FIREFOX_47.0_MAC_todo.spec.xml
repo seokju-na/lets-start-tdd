@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="1">
+
+  <testsuite name="todo.spec"
+    errors="0" failures="0" hostname="" id="" package="todo.spec" skipped="0"
+    tests="1" time="5.482" timestamp="Wed, 29 Jun 2016 11:23:24 GMT">
+  
+    <testcase name="사용자는 검색어를 입력 후 검색어가 포함된 자동 완성 리스트를 볼 수 있다." time="5.482" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+  
+  </testsuite>
+</testsuites>

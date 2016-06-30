@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge" />
+
+    <title>TODO App</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+    <div id="wrap">
+        <h1 id="title">TODO App</h1>
+
+        <div ng-controller="TodoAppCtrl as todo_app"
+             class="c-TodoApp">
+            <div ng-controller="TodoAppNavCtrl as todo_app_nav"
+                 ng-keypress="todo_app_nav.createNewTodo(todo_app_nav.newTodoText, $event)"
+                 class="c-TodoApp__Navigator">
+                <span>TODO : </span>
+                <input class="c-TodoApp__InputTodo"
+                       type="text"
+                       placeholder="해야할 일을 입력하세요"
+                       ng-model="todo_app_nav.newTodoText"
+                       maxlength="100" />
+            </div>
+
+            <div ng-controller="TodoAppItemListCtrl as todo_app_itemList"
+                 class="c-TodoList">
+                <div ng-repeat="todo in todos track by todo.id"
+                     ng-class="{
+                        'c-TodoItem-type--active': todo.status === 'ACTIVE',
+                        'c-TodoItem-type--complete': todo.status === 'COMPLETED'
+                     }"
+                     ng-click="todo_app_itemList.completeTodoItem(todo)"
+                     class="c-TodoItem">
+                    <label class="c-TodoItem__Status"></label>
+                    <span class="c-TodoItem__Text">{{ ::todo.text }}</span>
+                </div>
+            </div>
+
+            <div class="c-TodoApp__Toolbar">
+                <div class="c-FilterMenu">
+                    <span class="c-FilterMenu__MenuItem c-FilterMenu__MenuItem-is--selected">All</span>
+                    <span class="c-FilterMenu__MenuItem">Active</span>
+                    <span class="c-FilterMenu__MenuItem">Completed</span>
+                </div>
+
+                <button class="c-ClearCompletedTodoItem">
+                    Clear Completed
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="vendor/angular/angular.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
