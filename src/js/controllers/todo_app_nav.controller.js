@@ -8,10 +8,9 @@ function TodoAppNavCtrl($scope, Constants) {
         if ($event.keyCode !== Constants.keyCode.ENTER) return;
 
         $scope.$parent.todos.push({
-            id: ++$scope.$parent.lastTodoId,
+            id: $scope.$parent.lastTodoId++,
             status: 'ACTIVE',
-            text: newTodoText,
-            date: new Date().toString()
+            text: newTodoText
         });
 
         vm.newTodoText = '';
