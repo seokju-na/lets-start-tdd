@@ -12,11 +12,15 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'src/vendor/angular/angular.min.js',
+            'src/vendor/karma-read-json/karma-read-json.js',
+            'src/vendor/angular/angular.js',
             'src/vendor/angular-mocks/angular-mocks.js',
             'src/js/main.js',
-            'src/views/**/*.html',
-            'tests/unit/**/*.spec.js'
+            'tests/unit/**/*.spec.js',
+            {
+                pattern: 'tests/unit/mock/**/*.mock.json',
+                included: false
+            }
         ],
 
         plugins: [
@@ -36,8 +40,7 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'src/js/main.js': ['browserify'],
-            'tests/unit/**/*.spec.js': ['browserify']
+            'src/js/main.js': ['browserify']
         },
 
         browserify: {
@@ -58,12 +61,10 @@ module.exports = function (config) {
         // enable / disable colors in the output (reporters and logs)
         colors: true,
 
-        logLevel: config.LOG_INFO,
-
-
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: true,
 
+        logLevel: config.LOG_INFO,
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
@@ -76,6 +77,10 @@ module.exports = function (config) {
 
         // Concurrency level
         // how many browser should be started simultaneous
-        concurrency: Infinity
+        concurrency: Infinity,
+
+        client: {
+            captureConsole: true
+        }
     });
 };

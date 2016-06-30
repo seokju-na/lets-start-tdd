@@ -3,7 +3,15 @@ describe('todo_list.controller SPEC', function () {
     var $scope;
     var $rootScope;
 
-    var TodoListCtrl;
+    var TodoAppCtrl;
+    var TodoAppItemListCtrl;
+
+    var todoMock;
+
+    beforeEach(function (done) {
+        todoMock = readJSON('tests/unit/mock/todo.mock.json');
+        done();
+    });
 
     beforeEach(angular.mock.module('app'));
 
@@ -11,18 +19,36 @@ describe('todo_list.controller SPEC', function () {
         inject(function (_$controller_, _$rootScope_) {
             $controller = _$controller_;
             $rootScope = _$rootScope_;
+
+            $scope = $rootScope.$new();
+
+            TodoAppCtrl = $controller('TodoAppCtrl', {
+                $scope: $scope
+            });
+
+            $scope.todos = todoMock;
+            $scope.lastTodoId = 5;
+            $scope.$digest();
         });
     });
 
-    it('해야할 일들과 끝낸 일들을 보기 위한 목록이 존재한다.', function () {
+    it("해야한 일을 끝낸 경우, TODO Item의 상태를 'ACTIVE'에서 'COMPLETE'로 변경시킨다.", function () {
+        TodoAppItemListCtrl = $controller('TodoAppItemListCtrl', {
+            $scope: $scope.$new()
+        });
 
+        TodoAppItemListCtrl.completeTodoItem(todoMock[0]);
+
+        expect($scope.todos[0].status).toEqual('COMPLETE');
     });
 
-    it('새로 만드는 TODO Item의 Text가 없는 경우', function () {
+    it("'COMPLETE' 상태의 TODO Item을 클릭한 경우, 아무 변경사항이 없다.", function () {
+        TodoAppItemListCtrl = $controller('TodoAppItemListCtrl', {
+            $scope: $scope.$new()
+        });
 
-    });
+        TodoAppItemListCtrl.completeTodoItem(todoMock[1]);
 
-    it("해야한 일을 끝낸 경우, TODO Item의 상태를 'DONE'으로 변경시킨다.", function () {
-
+        expect($scope.todos[1].status).toEqual('COMPLETE');
     });
 });

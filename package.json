@@ -7,9 +7,10 @@
     "init": "npm install && npm run update-driver",
     "update-driver": "./node_modules/webdriver-manager/bin/webdriver-manager update",
     "update-driver:chrome": "./node_modules/webdriver-manager/bin/webdriver-manager update --chrome",
-    "test:chrome": "./node_modules/nightwatch/bin/nightwatch --env chrome",
-    "test:firefox": "./node_modules/nightwatch/bin/nightwatch --env firefox",
-    "test:safari": "./node_modules/nightwatch/bin/nightwatch --env safari",
+    "test:unit": "./node_modules/karma/bin/karma start karma.config.js",
+    "test:e2e:chrome": "./node_modules/nightwatch/bin/nightwatch --env chrome",
+    "test:e2e:firefox": "./node_modules/nightwatch/bin/nightwatch --env firefox",
+    "test:e2e:safari": "./node_modules/nightwatch/bin/nightwatch --env safari",
     "start": "./node_modules/gulp/bin/gulp.js"
   },
   "author": "seokju-na",
