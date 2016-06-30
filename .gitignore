@@ -5,3 +5,4 @@ src/vendor/
 tests/e2e/logs/
 tests/e2e/screenshots/
 node_modules/
+.idea/
