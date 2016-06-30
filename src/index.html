@@ -32,7 +32,7 @@
                 <div ng-repeat="todo in todos track by todo.id"
                      ng-class="{
                         'c-TodoItem-type--active': todo.status === 'ACTIVE',
-                        'c-TodoItem-type--complete': todo.status === 'COMPLETED'
+                        'c-TodoItem-type--complete': todo.status === 'COMPLETE'
                      }"
                      ng-click="todo_app_itemList.completeTodoItem(todo)"
                      class="c-TodoItem">
