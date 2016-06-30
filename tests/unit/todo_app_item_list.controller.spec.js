@@ -1,4 +1,4 @@
-describe('todo_list.controller SPEC', function () {
+describe('todo_app_item_list.controller SPEC', function () {
     var $controller;
     var $scope;
     var $rootScope;
