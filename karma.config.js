@@ -3,7 +3,7 @@ var istanbul = require('browserify-istanbul');
 module.exports = function (config) {
     config.set({
         basePath: '',
-        frameworks: ['browserify', 'jasmine'],
+        frameworks: ['browserify', 'source-map-support', 'jasmine'],
 
         files: [
             'src/vendor/karma-read-json/karma-read-json.js',
@@ -21,6 +21,8 @@ module.exports = function (config) {
             'karma-browserify',
             'karma-jasmine',
             'karma-phantomjs-launcher',
+            'karma-chrome-launcher',
+            'karma-source-map-support',
             'karma-mocha-reporter',
             'karma-coverage'
         ],
@@ -53,7 +55,7 @@ module.exports = function (config) {
         colors: true,
         autoWatch: true,
         logLevel: config.LOG_INFO,
-        browsers: ['PhantomJS'],
+        browsers: ['PhantomJS', 'Chrome'],
         singleRun: false,
         concurrency: Infinity,
         coverageReporter: {
