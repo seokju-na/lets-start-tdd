@@ -24,12 +24,12 @@ describe('#TodoApp', function () {
             .waitForElementVisible(elems.item.selector, 1000)
             .getAttribute(elems.item.selector + ':last-child', 'class', function (result) {
                 var classes = result.value.split(' ');
-                this.assert.equal(includes(classes, 'c-TodoItem-type--active'), true);
+                this.assert.equal(true, includes(classes, 'c-TodoItem-type--active'));
             })
             .getText(
                 elems.item.selector + ':last-child > ' + elems.itemText.selector,
                 function (result) {
-                    this.assert.equal(result.value, '방 청소 하기');
+                    this.assert.equal('방 청소 하기', result.value);
                 }).end(done);
     });
 
@@ -43,12 +43,12 @@ describe('#TodoApp', function () {
             .click(elems.item.selector + ':last-child')
             .getAttribute(elems.item.selector + ':last-child', 'class', function (result) {
                 var classes = result.value.split(' ');
-                this.assert.equal(includes(classes, 'c-TodoItem-type--complete'), true);
+                this.assert.equal(true, includes(classes, 'c-TodoItem-type--complete'));
             })
             .click(elems.item.selector + ':last-child')
             .getAttribute(elems.item.selector + ':last-child', 'class', function (result) {
                 var classes = result.value.split(' ');
-                this.assert.equal(includes(classes, 'c-TodoItem-type--complete'), true);
+                this.assert.equal(true, includes(classes, 'c-TodoItem-type--complete'));
             })
             .end(done);
     });
@@ -66,64 +66,71 @@ describe('#TodoApp', function () {
             .setValue(elems.input.selector, 'Testing3')
             .sendKeys(elems.input.selector, client.Keys.ENTER)
             .waitForElementVisible(elems.item.selector, 1000)
-            .click(elems.item.selector + ':first-child')
-            .click(elems.filters.active)
-            .getAttribute(elems.filters.active, 'class', function (result) {
+            .click(elems.item.selector + ':nth-child(1)')
+            .click(elems.filters.active.selector)
+            .getAttribute(elems.filters.active.selector, 'class', function (result) {
                 var classes = result.value.split(' ');
-                this.assert.equal(includes(classes, 'c-FilterMenu__MenuItem-is--selected'), true);
+                this.assert.equal(true, includes(classes, 'c-FilterMenu__MenuItem-is--selected'));
             })
+            .waitForElementVisible(elems.item.selector, 1000)
             .elements('css selector', elems.item.selector, function (results) {
-                var index = 0;
+                var that = this;
                 var matchedItemText = ['Testing2', 'Testing3'];
 
-                this.assert.equal(results.value.length, 2);
+                this.assert.equal(2, results.value.length);
 
-                results.value.map(function () {
-                    this.getText(elems.item.selector + ':nth-child(' + (index + 1) + ')', function (result) {
-                        this.assert.equal(result, matchedItemText[index]);
-                        index++;
-                    }.bind(this));
-                }.bind(this));
+                results.value.map(function (val, index) {
+                    that.getText(
+                        elems.item.selector + ':nth-child(' + (index + 1) + ') ' + elems.itemText.selector,
+                        function (text) {
+                            that.assert.equal(matchedItemText[index], text.value);
+                        }.bind(this)
+                    );
+                });
             })
-            .click(elems.filters.all)
-            .getAttribute(elems.filters.all, 'class', function (result) {
+            .click(elems.filters.all.selector)
+            .getAttribute(elems.filters.all.selector, 'class', function (result) {
                 var classes = result.value.split(' ');
                 this.assert.equal(includes(classes, 'c-FilterMenu__MenuItem-is--selected'), true);
             })
             .elements('css selector', elems.item.selector, function (results) {
-                var index = 0;
+                var that = this;
                 var matchedItemText = ['Testing1', 'Testing2', 'Testing3'];
 
                 this.assert.equal(results.value.length, 3);
 
-                results.value.map(function () {
-                    this.getText(elems.item.selector + ':nth-child(' + (index + 1) + ')', function (result) {
-                        this.assert.equal(result, matchedItemText[index]);
-                        index++;
-                    }.bind(this));
-                }.bind(this));
+                results.value.map(function (val, index) {
+                    that.getText(
+                        elems.item.selector + ':nth-child(' + (index + 1) + ') ' + elems.itemText.selector,
+                        function (text) {
+                            that.assert.equal(matchedItemText[index], text.value);
+                        }.bind(this)
+                    );
+                });
             })
-            .click(elems.filters.complete)
-            .getAttribute(elems.filters.complete, 'class', function (result) {
+            .click(elems.filters.complete.selector)
+            .getAttribute(elems.filters.complete.selector, 'class', function (result) {
                 var classes = result.value.split(' ');
                 this.assert.equal(includes(classes, 'c-FilterMenu__MenuItem-is--selected'), true);
             })
-            .getAttribute(elems.filters.active, 'class', function (result) {
+            .getAttribute(elems.filters.active.selector, 'class', function (result) {
                 var classes = result.value.split(' ');
                 this.assert.equal(includes(classes, 'c-FilterMenu__MenuItem-is--selected'), false);
             })
             .elements('css selector', elems.item.selector, function (results) {
-                var index = 0;
+                var that = this;
                 var matchedItemText = ['Testing1'];
 
                 this.assert.equal(results.value.length, 1);
 
-                results.value.map(function () {
-                    this.getText(elems.item.selector + ':nth-child(' + (index + 1) + ')', function (result) {
-                        this.assert.equal(result, matchedItemText[index]);
-                        index++;
-                    }.bind(this));
-                }.bind(this));
+                results.value.map(function (val, index) {
+                    that.getText(
+                        elems.item.selector + ':nth-child(' + (index + 1) + ') ' + elems.itemText.selector,
+                        function (text) {
+                            that.assert.equal(matchedItemText[index], text.value);
+                        }.bind(this)
+                    );
+                });
             })
             .end(done);
     });

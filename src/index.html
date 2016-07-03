@@ -29,7 +29,7 @@
 
             <div ng-controller="TodoAppItemListCtrl as todo_app_itemList"
                  class="c-TodoList">
-                <div ng-repeat="todo in todos track by todo.id"
+                <div ng-repeat="todo in (todos | TodoAppItemFilter:todoItemFilterType) track by todo.id"
                      ng-class="{
                         'c-TodoItem-type--active': todo.status === 'ACTIVE',
                         'c-TodoItem-type--complete': todo.status === 'COMPLETE'
@@ -41,11 +41,17 @@
                 </div>
             </div>
 
-            <div class="c-TodoApp__Toolbar">
+            <div ng-controller="TodoAppToolbarCtrl as todo_app_toolbar"
+                 class="c-TodoApp__Toolbar">
                 <div class="c-FilterMenu">
-                    <span class="c-FilterMenu__MenuItem c-FilterMenu__MenuItem-is--selected">All</span>
-                    <span class="c-FilterMenu__MenuItem">Active</span>
-                    <span class="c-FilterMenu__MenuItem">Completed</span>
+                    <span ng-repeat="item in todo_app_toolbar.filterMenu track by item.id"
+                          ng-click="todo_app_toolbar.onSelectFilterMenu(item)"
+                          ng-class="{
+                            'c-FilterMenu__MenuItem-is--selected': item.id === todo_app_toolbar.selectedFilterMenuItem.id
+                          }"
+                          class="c-FilterMenu__MenuItem">
+                        {{ ::item.name }}
+                    </span>
                 </div>
 
                 <button class="c-ClearCompletedTodoItem">
