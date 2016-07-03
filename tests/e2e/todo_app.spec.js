@@ -68,6 +68,10 @@ describe('#TodoApp', function () {
             .waitForElementVisible(elems.item.selector, 1000)
             .click(elems.item.selector + ':first-child')
             .click(elems.filters.active)
+            .getAttribute(elems.filters.active, 'class', function (result) {
+                var classes = result.value.split(' ');
+                this.assert.equal(includes(classes, 'c-FilterMenu__MenuItem-is--selected'), true);
+            })
             .elements('css selector', elems.item.selector, function (results) {
                 var index = 0;
                 var matchedItemText = ['Testing2', 'Testing3'];
@@ -82,6 +86,10 @@ describe('#TodoApp', function () {
                 }.bind(this));
             })
             .click(elems.filters.all)
+            .getAttribute(elems.filters.all, 'class', function (result) {
+                var classes = result.value.split(' ');
+                this.assert.equal(includes(classes, 'c-FilterMenu__MenuItem-is--selected'), true);
+            })
             .elements('css selector', elems.item.selector, function (results) {
                 var index = 0;
                 var matchedItemText = ['Testing1', 'Testing2', 'Testing3'];
@@ -96,6 +104,14 @@ describe('#TodoApp', function () {
                 }.bind(this));
             })
             .click(elems.filters.complete)
+            .getAttribute(elems.filters.complete, 'class', function (result) {
+                var classes = result.value.split(' ');
+                this.assert.equal(includes(classes, 'c-FilterMenu__MenuItem-is--selected'), true);
+            })
+            .getAttribute(elems.filters.active, 'class', function (result) {
+                var classes = result.value.split(' ');
+                this.assert.equal(includes(classes, 'c-FilterMenu__MenuItem-is--selected'), false);
+            })
             .elements('css selector', elems.item.selector, function (results) {
                 var index = 0;
                 var matchedItemText = ['Testing1'];
