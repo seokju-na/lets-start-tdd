@@ -67,8 +67,18 @@
 
 ### 2. 사용자 스토리에 맞게 테스트 코드 작성
 
-Firefox는 47버전부터는 문제가 있어 Gecko Driver를 사용해야되는데 브라우저를 새로 띄우고 종료하는 과정에서 ``Connection Refused! Is selenium server started?``라는 에러가 뜬다. (노답)
+* 먼저 퍼블리싱을 한다. Page Object를 만들어 전체 구조를 고려하며 개발한다. CSS Style을 BEM으로 작성하면 구조화 작업에 상당히 도움이 된다.
+* HTML의 계층을 나누어 Controller를 적용할 곳을 정한다. 그리고 각 Controller마다의 단위 테스트를 작성한다.
+* Todo Item의 경우 status 프로퍼티로 CSS Class로 다른 상태의 아이템으로 분류했다. HTML이 많이 바뀌는 아이템일 경우 Directive로 따로 빼는 것도 좋은 선택이다.
+* 단위 테스트의 경우 함수 단위로 Spec을 작성한다.
+* E2E 테스트의 경우 사용자 스토리 단위로 Spec을 작성한다.
 
-그러므로 Firefox 테스트는 46이하 버전을 사용하도록 하자.
+
+### 3. Coverage 및 Demo
+
+Coverage: ``tests/unit/coverage/``에 위치
+
+Demo show case: [http://seokju-todo-app.surge.sh/](http://seokju-todo-app.surge.sh/)
+
 
 
