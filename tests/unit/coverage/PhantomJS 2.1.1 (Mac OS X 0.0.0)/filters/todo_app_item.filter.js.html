@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for controllers/todo_app_nav.controller.js</title>
+    <title>Code coverage report for filters/todo_app_item.filter.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -16,18 +16,18 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../index.html">all files</a> / <a href="index.html">controllers/</a> todo_app_nav.controller.js
+      <a href="../index.html">all files</a> / <a href="index.html">filters/</a> todo_app_item.filter.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>11/11</span>
+        <span class='fraction'>13/13</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>10/10</span>
+        <span class='fraction'>13/13</span>
       </div>
     </div>
   </div>
@@ -68,55 +68,61 @@
 23
 24
 25
-26</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
+26
+27
+28</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">6×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">function TodoAppNavCtrl($scope, Constants) {
-    var vm = this;
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var filter = require('lodash/filter');
 &nbsp;
-    vm.newTodoText = '';
-    vm.createNewTodo = createNewTodo;
+function TodoAppItemFilter() {
+    return function (todos, filterType) {
+        var filteredTodos = todos;
 &nbsp;
-    function createNewTodo(newTodoText, $event) {
-        if ($event.keyCode !== Constants.keyCode.ENTER) return;
+        switch (filterType) {
+            case 'ALL':
+                break;
+            case 'ACTIVE':
+                filteredTodos = filter(todos, { status: 'ACTIVE' });
+                break;
+            case 'COMPLETE':
+                filteredTodos = filter(todos, { status: 'COMPLETE' });
+                break;
+            default:
+                throw new Error('todo_app_item.filter.js: Unexpected type.');
+        }
 &nbsp;
-        $scope.$parent.todos.push({
-            id: $scope.$parent.lastTodoId++,
-            status: 'ACTIVE',
-            text: newTodoText
-        });
-&nbsp;
-        vm.newTodoText = '';
-    }
+        return filteredTodos;
+    };
 }
 &nbsp;
-TodoAppNavCtrl.$inject = ['$scope', 'Constants'];
-&nbsp;
 module.exports = {
-    name: 'TodoAppNavCtrl',
-    fn: TodoAppNavCtrl
+    name: 'TodoAppItemFilter',
+    fn: TodoAppItemFilter
 };
 &nbsp;</pre></td></tr>
 </table></pre>
