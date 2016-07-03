@@ -84,7 +84,7 @@ describe('#TodoApp', function () {
                         elems.item.selector + ':nth-child(' + (index + 1) + ') ' + elems.itemText.selector,
                         function (text) {
                             that.assert.equal(matchedItemText[index], text.value);
-                        }.bind(this)
+                        }
                     );
                 });
             })
@@ -104,7 +104,7 @@ describe('#TodoApp', function () {
                         elems.item.selector + ':nth-child(' + (index + 1) + ') ' + elems.itemText.selector,
                         function (text) {
                             that.assert.equal(matchedItemText[index], text.value);
-                        }.bind(this)
+                        }
                     );
                 });
             })
@@ -128,7 +128,44 @@ describe('#TodoApp', function () {
                         elems.item.selector + ':nth-child(' + (index + 1) + ') ' + elems.itemText.selector,
                         function (text) {
                             that.assert.equal(matchedItemText[index], text.value);
-                        }.bind(this)
+                        }
+                    );
+                });
+            })
+            .end(done);
+    });
+
+    it('사용자는 끝낸 일들을 모두 목록에서 지울 수 있다.', function (client, done) {
+        client
+            .url(url)
+            .waitForElementVisible(elems.list.selector, 1000)
+            .setValue(elems.input.selector, 'Testing1')
+            .sendKeys(elems.input.selector, client.Keys.ENTER)
+            .waitForElementVisible(elems.item.selector, 1000)
+            .setValue(elems.input.selector, 'Testing2')
+            .sendKeys(elems.input.selector, client.Keys.ENTER)
+            .waitForElementVisible(elems.item.selector, 1000)
+            .setValue(elems.input.selector, 'Testing3')
+            .sendKeys(elems.input.selector, client.Keys.ENTER)
+            .waitForElementVisible(elems.item.selector, 1000)
+            .setValue(elems.input.selector, 'Testing4')
+            .sendKeys(elems.input.selector, client.Keys.ENTER)
+            .waitForElementVisible(elems.item.selector, 1000)
+            .click(elems.item.selector + ':nth-child(2)')
+            .click(elems.item.selector + ':nth-child(3)')
+            .click(elems.clear.selector)
+            .elements('css selector', elems.item.selector, function (results) {
+                var that = this;
+                var matchedItemText = ['Testing1', 'Testing4'];
+
+                this.assert.equal(results.value.length, 2);
+
+                results.value.map(function (val, index) {
+                    that.getText(
+                        elems.item.selector + ':nth-child(' + (index + 1) + ') ' + elems.itemText.selector,
+                        function (text) {
+                            that.assert.equal(matchedItemText[index], text.value);
+                        }
                     );
                 });
             })
