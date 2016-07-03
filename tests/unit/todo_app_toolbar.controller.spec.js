@@ -9,7 +9,7 @@ describe('todo_app_toolbar.controller SPEC', function () {
     var todoMock;
 
     beforeEach(function (done) {
-        todoMock = readJSON('tests/unit/mock/todo.mock.json');
+        todoMock = readJSON('tests/unit/mock/todo.mock.json').todos;
         done();
     });
 
