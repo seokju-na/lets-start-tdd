@@ -14,7 +14,11 @@ module.exports = {
         itemText: { selector: '.c-TodoItem__Text' },
 
         filterMenu: { selector: '.c-FilterMenu' },
-        filter: { selector: '.c-FilterMenu__MenuItem' },
+        filters: {
+            all: { selector: '.c-FilterMenu__MenuItem:first-child' },
+            active: { selector: '.c-FilterMenu__MenuItem:nth-child(2)' },
+            complete: { selector: '.c-FilterMenu__MenuItem:last-child' }
+        },
         clear: { selector: '.c-ClearCompletedTodoItem' }
     }
 };

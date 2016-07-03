@@ -37,7 +37,6 @@ describe('#TodoApp', function () {
         client
             .url(url)
             .waitForElementVisible(elems.list.selector, 1000)
-            .waitForElementVisible(elems.item.selector, 1000)
             .setValue(elems.input.selector, '테스팅1')
             .sendKeys(elems.input.selector, client.Keys.ENTER)
             .waitForElementVisible(elems.item.selector, 1000)
@@ -50,6 +49,66 @@ describe('#TodoApp', function () {
             .getAttribute(elems.item.selector + ':last-child', 'class', function (result) {
                 var classes = result.value.split(' ');
                 this.assert.equal(includes(classes, 'c-TodoItem-type--complete'), true);
-            });
+            })
+            .end(done);
+    });
+
+    it('사용자는 종류에 맞게 해당 일들을 분류할 수 있다.', function (client, done) {
+        client
+            .url(url)
+            .waitForElementVisible(elems.list.selector, 1000)
+            .setValue(elems.input.selector, 'Testing1')
+            .sendKeys(elems.input.selector, client.Keys.ENTER)
+            .waitForElementVisible(elems.item.selector, 1000)
+            .setValue(elems.input.selector, 'Testing2')
+            .sendKeys(elems.input.selector, client.Keys.ENTER)
+            .waitForElementVisible(elems.item.selector, 1000)
+            .setValue(elems.input.selector, 'Testing3')
+            .sendKeys(elems.input.selector, client.Keys.ENTER)
+            .waitForElementVisible(elems.item.selector, 1000)
+            .click(elems.item.selector + ':first-child')
+            .click(elems.filters.active)
+            .elements('css selector', elems.item.selector, function (results) {
+                var index = 0;
+                var matchedItemText = ['Testing2', 'Testing3'];
+
+                this.assert.equal(results.value.length, 2);
+
+                results.value.map(function () {
+                    this.getText(elems.item.selector + ':nth-child(' + (index + 1) + ')', function (result) {
+                        this.assert.equal(result, matchedItemText[index]);
+                        index++;
+                    }.bind(this));
+                }.bind(this));
+            })
+            .click(elems.filters.all)
+            .elements('css selector', elems.item.selector, function (results) {
+                var index = 0;
+                var matchedItemText = ['Testing1', 'Testing2', 'Testing3'];
+
+                this.assert.equal(results.value.length, 3);
+
+                results.value.map(function () {
+                    this.getText(elems.item.selector + ':nth-child(' + (index + 1) + ')', function (result) {
+                        this.assert.equal(result, matchedItemText[index]);
+                        index++;
+                    }.bind(this));
+                }.bind(this));
+            })
+            .click(elems.filters.complete)
+            .elements('css selector', elems.item.selector, function (results) {
+                var index = 0;
+                var matchedItemText = ['Testing1'];
+
+                this.assert.equal(results.value.length, 1);
+
+                results.value.map(function () {
+                    this.getText(elems.item.selector + ':nth-child(' + (index + 1) + ')', function (result) {
+                        this.assert.equal(result, matchedItemText[index]);
+                        index++;
+                    }.bind(this));
+                }.bind(this));
+            })
+            .end(done);
     });
 });
