@@ -97,7 +97,7 @@ describe('#TodoApp', function () {
                 var that = this;
                 var matchedItemText = ['Testing1', 'Testing2', 'Testing3'];
 
-                this.assert.equal(results.value.length, 3);
+                this.assert.equal(3, results.value.length);
 
                 results.value.map(function (val, index) {
                     that.getText(
@@ -121,7 +121,7 @@ describe('#TodoApp', function () {
                 var that = this;
                 var matchedItemText = ['Testing1'];
 
-                this.assert.equal(results.value.length, 1);
+                this.assert.equal(1, results.value.length);
 
                 results.value.map(function (val, index) {
                     that.getText(
@@ -154,11 +154,12 @@ describe('#TodoApp', function () {
             .click(elems.item.selector + ':nth-child(2)')
             .click(elems.item.selector + ':nth-child(3)')
             .click(elems.clear.selector)
+            .waitForElementVisible(elems.item.selector, 1000)
             .elements('css selector', elems.item.selector, function (results) {
                 var that = this;
                 var matchedItemText = ['Testing1', 'Testing4'];
 
-                this.assert.equal(results.value.length, 2);
+                this.assert.equal(2, results.value.length);
 
                 results.value.map(function (val, index) {
                     that.getText(

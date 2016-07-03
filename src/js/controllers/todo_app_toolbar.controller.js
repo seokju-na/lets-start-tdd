@@ -1,4 +1,7 @@
 var findIndex = require('lodash/findIndex');
+var filter = require('lodash/filter');
+var map = require('lodash/map');
+var assign = require('lodash/assign');
 
 function TodoAppToolbarCtrl($scope) {
     var vm = this;
@@ -23,6 +26,8 @@ function TodoAppToolbarCtrl($scope) {
     vm.selectedFilterMenuItem = vm.filterMenu[0];
     vm.onSelectFilterMenu = onSelectFilterMenu;
 
+    vm.clearCompleteTodoItem = clearCompleteTodoItem;
+
     function onSelectFilterMenu(item) {
         var targetId = parseInt(item.id, 10);
         var targetIndex = findIndex(vm.filterMenu, { id: targetId });
@@ -33,6 +38,17 @@ function TodoAppToolbarCtrl($scope) {
 
         vm.selectedFilterMenuItem = vm.filterMenu[targetIndex];
         $scope.$parent.todoItemFilterType = item.value;
+    }
+
+    function clearCompleteTodoItem() {
+        var lastIndex = 0;
+        var filteredTodos = filter($scope.$parent.todos, { status: 'ACTIVE' });
+
+        $scope.$parent.todos = map(filteredTodos, function (todoItem, index) {
+            lastIndex = index;
+            return assign(todoItem, { id: index });
+        });
+        $scope.$parent.lastTodoId = lastIndex + 1;
     }
 }
 

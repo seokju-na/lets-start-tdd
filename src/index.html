@@ -29,7 +29,7 @@
 
             <div ng-controller="TodoAppItemListCtrl as todo_app_itemList"
                  class="c-TodoList">
-                <div ng-repeat="todo in (todos | TodoAppItemFilter:todoItemFilterType) track by todo.id"
+                <div ng-repeat="todo in (todos | TodoAppItemFilter:todoItemFilterType)"
                      ng-class="{
                         'c-TodoItem-type--active': todo.status === 'ACTIVE',
                         'c-TodoItem-type--complete': todo.status === 'COMPLETE'
@@ -54,7 +54,8 @@
                     </span>
                 </div>
 
-                <button class="c-ClearCompletedTodoItem">
+                <button ng-click="todo_app_toolbar.clearCompleteTodoItem()"
+                        class="c-ClearCompletedTodoItem">
                     Clear Completed
                 </button>
             </div>

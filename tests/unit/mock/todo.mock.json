@@ -56,6 +56,24 @@
             "status": "COMPLETE",
             "text": "YAS SEOKJU NA"
         }
+    ],
+
+    "clearCompleteTodos": [
+        {
+            "id": 0,
+            "status": "ACTIVE",
+            "text": "Hello World!"
+        },
+        {
+            "id": 1,
+            "status": "ACTIVE",
+            "text": "HoHOHoHooHoHOHoHo"
+        },
+        {
+            "id": 2,
+            "status": "ACTIVE",
+            "text": "Good Part"
+        }
     ]
 }
 

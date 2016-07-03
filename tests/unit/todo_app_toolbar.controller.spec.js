@@ -7,9 +7,11 @@ describe('todo_app_toolbar.controller SPEC', function () {
     var TodoAppToolbarCtrl;
 
     var todoMock;
+    var clearCompletedTodosMock;
 
     beforeEach(function (done) {
         todoMock = readJSON('tests/unit/mock/todo.mock.json').todos;
+        clearCompletedTodosMock = readJSON('tests/unit/mock/todo.mock.json').clearCompleteTodos;
         done();
     });
 
@@ -73,5 +75,20 @@ describe('todo_app_toolbar.controller SPEC', function () {
 
         expect(TodoAppToolbarCtrl.selectedFilterMenuItem.id).toEqual(1);
         expect($scope.todoItemFilterType).toEqual('ACTIVE');
+    });
+
+    it("clearCompleteTodoItem이 호출된 경우, 'COMPLETE' 상태의 TodoItem을 모두 삭제할 수 있다.", function () {
+        TodoAppToolbarCtrl = $controller('TodoAppToolbarCtrl', {
+            $scope: $scope.$new()
+        });
+
+        $scope.todos = todoMock;
+        $scope.lastTodoId = 5;
+        $scope.$digest();
+
+        TodoAppToolbarCtrl.clearCompleteTodoItem();
+
+        expect($scope.todos).toEqual(clearCompletedTodosMock);
+        expect($scope.lastTodoId).toEqual(3);
     });
 });
