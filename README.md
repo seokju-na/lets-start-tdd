@@ -1,5 +1,7 @@
 # TDD 시작해보자
 
+[![Build Status](https://travis-ci.org/seokju-na/lets-start-tdd.svg?branch=master)](https://travis-ci.org/seokju-na/lets-start-tdd)
+
 ## TDD: Test Driven Development
 
 * TDD의 본질은 테스트가 아니라 개발 방식에 있다
