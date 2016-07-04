@@ -7,6 +7,7 @@
     "init": "npm install && npm run update-driver",
     "update-driver": "./node_modules/webdriver-manager/bin/webdriver-manager update",
     "update-driver:chrome": "./node_modules/webdriver-manager/bin/webdriver-manager update --chrome",
+    "test": "npm run start & ./node_modules/karma/bin/karma start karma.config.js --single-run --browsers PhantomJS && npm run test:e2e:firefox",
     "test:unit": "./node_modules/karma/bin/karma start karma.config.js",
     "test:e2e:chrome": "./node_modules/nightwatch/bin/nightwatch --env chrome",
     "test:e2e:firefox": "./node_modules/nightwatch/bin/nightwatch --env firefox",
